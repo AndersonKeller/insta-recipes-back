@@ -2,7 +2,11 @@ import { Router } from "express";
 import { ensureDataIsValidMiddleware } from "../middlewares/ensureDataIsValid.middleware";
 import { createUserSchema } from "../schemas/user.schemas";
 import { ensureEmailExistsMiddleware } from "../middlewares/ensureEmailExists.middleware";
-import { createUserController } from "../controllers/user.controllers";
+import {
+  createUserController,
+  retrieveUserController,
+} from "../controllers/user.controllers";
+import { ensureTokenvalidMiddleware } from "../middlewares/ensureTokenIsValid.middleware";
 
 export const userRoutes: Router = Router();
 userRoutes.post(
@@ -11,3 +15,4 @@ userRoutes.post(
   ensureEmailExistsMiddleware,
   createUserController
 );
+userRoutes.get("/retrieve", ensureTokenvalidMiddleware, retrieveUserController);
