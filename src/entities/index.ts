@@ -1,3 +1,4 @@
 import { User } from "./user.entitie";
+import { Recipe } from "./recipes.entitie";
 
-export { User };
+export { User, Recipe };
