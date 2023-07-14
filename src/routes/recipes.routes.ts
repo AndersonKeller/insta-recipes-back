@@ -7,6 +7,7 @@ import {
 import {
   createRecipeController,
   getAllRecipesController,
+  removeRecipeController,
   updateRecipeController,
 } from "../controllers/recipes.controllers";
 import { ensureTokenvalidMiddleware } from "../middlewares/ensureTokenIsValid.middleware";
@@ -27,4 +28,10 @@ recipesRoutes.patch(
   ensureTokenvalidMiddleware,
   ensureIsOwnerMiddleware,
   updateRecipeController
+);
+recipesRoutes.delete(
+  "/:id",
+  ensureTokenvalidMiddleware,
+  ensureIsOwnerMiddleware,
+  removeRecipeController
 );
