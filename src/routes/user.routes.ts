@@ -4,6 +4,7 @@ import { createUserSchema } from "../schemas/user.schemas";
 import { ensureEmailExistsMiddleware } from "../middlewares/ensureEmailExists.middleware";
 import {
   createUserController,
+  getRecipesByUserController,
   retrieveUserController,
 } from "../controllers/user.controllers";
 import { ensureTokenvalidMiddleware } from "../middlewares/ensureTokenIsValid.middleware";
@@ -16,3 +17,8 @@ userRoutes.post(
   createUserController
 );
 userRoutes.get("/retrieve", ensureTokenvalidMiddleware, retrieveUserController);
+userRoutes.get(
+  "/recipes",
+  ensureTokenvalidMiddleware,
+  getRecipesByUserController
+);

@@ -9,5 +9,7 @@ export const returnRecipeSchema = createRecipeSchema.extend({
   id: z.number(),
   user: returnUserSchema,
 });
+export const returnAllRecipesSchema = returnRecipeSchema.array();
 export type CreateRecipe = z.infer<typeof createRecipeSchema>;
 export type iRecipe = z.infer<typeof returnRecipeSchema>;
+export type iRecipes = z.infer<typeof returnAllRecipesSchema>;

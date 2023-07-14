@@ -1,6 +1,7 @@
 import { Response, Request } from "express";
-import { iRecipe } from "../schemas/recipes.schemas";
+import { iRecipe, iRecipes } from "../schemas/recipes.schemas";
 import { createRecipeService } from "../service/recipes/createRecipe.service";
+import { getAllRecipesService } from "../service/recipes/getAllRecipes.service";
 export const createRecipeController = async (
   req: Request,
   res: Response
@@ -9,4 +10,11 @@ export const createRecipeController = async (
   const userId: number = parseInt(req.user.id);
   const recipe: iRecipe = await createRecipeService(recipeData, userId);
   return res.status(201).json(recipe);
+};
+export const getAllRecipesController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const recipes: iRecipes = await getAllRecipesService();
+  return res.status(200).json(recipes);
 };
