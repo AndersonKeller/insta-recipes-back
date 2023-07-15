@@ -2,14 +2,14 @@ import {
   Column,
   Entity,
   JoinColumn,
-  JoinTable,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { User } from "./user.entitie";
-import { Ingredient } from "./ingredients.entitie";
 import { RecipeIngredient } from "./recipesIngredientes.entitie";
+
+import { CommentsRecipes } from "./commentsRecipes.entitie";
 
 @Entity("recipes")
 class Recipe {
@@ -35,5 +35,9 @@ class Recipe {
   )
   @JoinColumn()
   recipesIngredients: RecipeIngredient[];
+
+  @OneToMany(() => CommentsRecipes, (commentsrecipes) => commentsrecipes.recipe)
+  @JoinColumn()
+  commentsRecipe: CommentsRecipes[];
 }
 export { Recipe };

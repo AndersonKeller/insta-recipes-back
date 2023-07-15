@@ -4,7 +4,13 @@ import {
   iRecipe,
   returnRecipeSchema,
 } from "../../schemas/recipes.schemas";
-import { Ingredient, Recipe, RecipeIngredient, User } from "../../entities";
+import {
+  Ingredient,
+  Rating,
+  Recipe,
+  RecipeIngredient,
+  User,
+} from "../../entities";
 import { AppDataSource } from "../../data-source";
 
 export const createRecipeService = async (
@@ -18,6 +24,9 @@ export const createRecipeService = async (
     AppDataSource.getRepository(RecipeIngredient);
   const ingredientRepository: Repository<Ingredient> =
     AppDataSource.getRepository(Ingredient);
+  const ratingRepository: Repository<Rating> =
+    AppDataSource.getRepository(Rating);
+
   const namesIngredients: string[] = recipeData.ingredients.map(
     (ingredient) => ingredient.ingredient.name
   );
@@ -49,6 +58,12 @@ export const createRecipeService = async (
   const recipe: any = recipeRepository.create(newRecipe);
   const recipeSaved: Recipe = await recipeRepository.save(recipe);
 
+  const rating: Rating = ratingRepository.create({
+    rating: 0,
+    recipe: recipeSaved,
+  });
+  const ratingSaved = await ratingRepository.save(rating);
+
   recipeData.ingredients.forEach(async (ingredient) => {
     const findIngredient: Ingredient | null =
       await ingredientRepository.findOne({
@@ -68,6 +83,7 @@ export const createRecipeService = async (
   const recipeToReturn: iRecipe = {
     ...recipeSaved,
     recipesIngredients: recipeData.ingredients,
+    rating: ratingSaved.rating,
   };
   const returnRecipe: iRecipe = returnRecipeSchema.parse(recipeToReturn);
   return returnRecipe;

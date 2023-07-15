@@ -1,13 +1,15 @@
 import { z } from "zod";
 import { returnUserSchema } from "./user.schemas";
 import { DeepPartial } from "typeorm";
-import { returnRecipeIngredientSchema } from "./recipesIngredients.schemas";
+import { createRatingSchema, returnRatingSchema } from "./rating.schemas";
+
+const types = ["kg", "ml", "unid"] as const;
 
 const ingredientToRecipe = z
   .object({
     id: z.number().optional(),
     quantity: z.number(),
-    quantityType: z.string(),
+    quantityType: z.enum(types),
     ingredient: z.object({
       id: z.number().optional(),
       name: z.string(),
@@ -28,6 +30,7 @@ export const returnRecipeSchema = createRecipeSchema
     id: z.number(),
     user: returnUserSchema,
     recipesIngredients: ingredientToRecipe.optional(),
+    rating: z.number().default(0),
   })
   .omit({ ingredients: true });
 
