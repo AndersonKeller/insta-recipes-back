@@ -19,6 +19,9 @@ export const updateRecipeService = async (
     },
     relations: {
       user: true,
+      recipesIngredients: {
+        ingredient: true,
+      },
     },
   });
   const newRecipe: any = {

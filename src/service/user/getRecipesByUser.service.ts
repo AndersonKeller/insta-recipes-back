@@ -11,7 +11,7 @@ export const getRecipesByUserService = async (
 ): Promise<iRecipes> => {
   const recipeRepository: Repository<Recipe> =
     AppDataSource.getRepository(Recipe);
-  const recipes: iRecipes = await recipeRepository.find({
+  const recipes: Recipe[] = await recipeRepository.find({
     where: {
       user: {
         id: userId,
@@ -19,6 +19,9 @@ export const getRecipesByUserService = async (
     },
     relations: {
       user: true,
+      recipesIngredients: {
+        ingredient: true,
+      },
     },
   });
 
