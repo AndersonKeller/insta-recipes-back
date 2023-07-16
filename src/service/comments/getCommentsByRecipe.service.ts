@@ -24,7 +24,7 @@ export const getCommentsByRecipeService = async (
   });
   const allComments = comments.map((comment) => {
     const commentReturn = {
-      id: comment.id,
+      id: comment.comments.id,
       comment: comment.comments.comment,
       user: {
         name: comment.comments.user.name,

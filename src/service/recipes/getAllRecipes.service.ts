@@ -3,12 +3,13 @@ import {
   iRecipes,
   returnAllRecipesSchema,
 } from "../../schemas/recipes.schemas";
-import { Recipe } from "../../entities";
+import { Rating, Recipe } from "../../entities";
 import { AppDataSource } from "../../data-source";
 
-export const getAllRecipesService = async (): Promise<iRecipes> => {
+export const getAllRecipesService = async (): Promise<any> => {
   const recipeRepository: Repository<Recipe> =
     AppDataSource.getRepository(Recipe);
+
   const recipes: Recipe[] = await recipeRepository.find({
     relations: {
       user: true,

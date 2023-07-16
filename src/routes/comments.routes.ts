@@ -4,6 +4,7 @@ import { createCommentSchema } from "../schemas/comments.schemas";
 import {
   createCommentController,
   getCommentsByRecipeController,
+  removeCommentController,
 } from "../controllers/comments.controller";
 import { ensureTokenvalidMiddleware } from "../middlewares/ensureTokenIsValid.middleware";
 import { ensureRecipeExistsMiddleware } from "../middlewares/ensureRecipeExists.middleware";
@@ -21,4 +22,9 @@ commentsRoutes.get(
   "/:id",
   ensureRecipeExistsMiddleware,
   getCommentsByRecipeController
+);
+commentsRoutes.delete(
+  "/:id",
+  ensureTokenvalidMiddleware,
+  removeCommentController
 );

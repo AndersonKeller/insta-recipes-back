@@ -40,7 +40,7 @@ export const returnRecipeSchema = createRecipeSchema
     id: z.number(),
     user: returnUserSchema,
     recipesIngredients: ingredientToRecipe.optional(),
-    rating: z.number().default(0),
+    rating: z.number().optional(),
   })
   .omit({ ingredients: true });
 
