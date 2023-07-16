@@ -1,7 +1,10 @@
 import { Router } from "express";
 import { ensureTokenvalidMiddleware } from "../middlewares/ensureTokenIsValid.middleware";
 import { ensureRecipeExistsMiddleware } from "../middlewares/ensureRecipeExists.middleware";
-import { createLikeController } from "../controllers/likes.controller";
+import {
+  createLikeController,
+  getLikesByUserController,
+} from "../controllers/likes.controller";
 
 export const likesRoutes: Router = Router();
 
@@ -11,3 +14,4 @@ likesRoutes.post(
   ensureRecipeExistsMiddleware,
   createLikeController
 );
+likesRoutes.get("/user", ensureTokenvalidMiddleware, getLikesByUserController);
