@@ -7,7 +7,7 @@ const types = ["kg", "ml", "unid"] as const;
 const ingredientToRecipe = z
   .object({
     id: z.number().optional(),
-    quantity: z.number(),
+    quantity: z.number().int(),
     quantityType: z.enum(types),
     ingredient: z.object({
       id: z.number().optional(),
@@ -17,7 +17,7 @@ const ingredientToRecipe = z
   .array();
 export const updateIngredientsToRecipeSchema = z
   .object({
-    quantity: z.number().optional(),
+    quantity: z.number().int().optional(),
     quantityType: z.enum(types).optional(),
     ingredient: z.object({
       id: z.number().optional(),
