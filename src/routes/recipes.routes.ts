@@ -2,12 +2,14 @@ import { Router } from "express";
 import { ensureDataIsValidMiddleware } from "../middlewares/ensureDataIsValid.middleware";
 import {
   createRecipeSchema,
+  updateIngredientsToRecipeSchema,
   updateRecipeSchema,
 } from "../schemas/recipes.schemas";
 import {
   createRecipeController,
   getAllRecipesController,
   removeRecipeController,
+  updateIngredientsController,
   updateRecipeController,
 } from "../controllers/recipes.controllers";
 import { ensureTokenvalidMiddleware } from "../middlewares/ensureTokenIsValid.middleware";
@@ -28,6 +30,13 @@ recipesRoutes.patch(
   ensureTokenvalidMiddleware,
   ensureIsOwnerMiddleware,
   updateRecipeController
+);
+recipesRoutes.patch(
+  "/:id/ingredients",
+  ensureDataIsValidMiddleware(updateIngredientsToRecipeSchema),
+  ensureTokenvalidMiddleware,
+  ensureIsOwnerMiddleware,
+  updateIngredientsController
 );
 recipesRoutes.delete(
   "/:id",

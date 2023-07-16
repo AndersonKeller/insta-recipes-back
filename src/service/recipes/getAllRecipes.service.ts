@@ -6,7 +6,7 @@ import {
 import { Recipe } from "../../entities";
 import { AppDataSource } from "../../data-source";
 
-export const getAllRecipesService = async (): Promise<any> => {
+export const getAllRecipesService = async (): Promise<iRecipes> => {
   const recipeRepository: Repository<Recipe> =
     AppDataSource.getRepository(Recipe);
   const recipes: Recipe[] = await recipeRepository.find({

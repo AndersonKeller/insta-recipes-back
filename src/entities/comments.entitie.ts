@@ -2,10 +2,12 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { CommentsRecipes } from "./commentsRecipes.entitie";
+import { User } from "./user.entitie";
 
 @Entity("comments")
 class Comments {
@@ -14,6 +16,11 @@ class Comments {
 
   @Column()
   comment: string;
+
+  @ManyToOne(() => User)
+  @JoinColumn()
+  user: User;
+
   @OneToMany(
     () => CommentsRecipes,
     (commentsrecipes) => commentsrecipes.comments
