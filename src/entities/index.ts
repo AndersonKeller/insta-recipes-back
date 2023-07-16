@@ -5,6 +5,7 @@ import { RecipeIngredient } from "./recipesIngredientes.entitie";
 import { Rating } from "./ratingRecipe.entitie";
 import { Comments } from "./comments.entitie";
 import { CommentsRecipes } from "./commentsRecipes.entitie";
+import { Likes } from "./likes.entitie";
 export {
   User,
   Recipe,
@@ -13,4 +14,5 @@ export {
   Rating,
   Comments,
   CommentsRecipes,
+  Likes,
 };

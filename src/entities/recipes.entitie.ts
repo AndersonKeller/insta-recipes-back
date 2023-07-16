@@ -10,6 +10,7 @@ import { User } from "./user.entitie";
 import { RecipeIngredient } from "./recipesIngredientes.entitie";
 
 import { CommentsRecipes } from "./commentsRecipes.entitie";
+import { Likes } from "./likes.entitie";
 
 @Entity("recipes")
 class Recipe {
@@ -39,5 +40,7 @@ class Recipe {
   @OneToMany(() => CommentsRecipes, (commentsrecipes) => commentsrecipes.recipe)
   @JoinColumn()
   commentsRecipe: CommentsRecipes[];
+  @OneToMany(() => Likes, (likes) => likes.recipe)
+  likes: Recipe[];
 }
 export { Recipe };

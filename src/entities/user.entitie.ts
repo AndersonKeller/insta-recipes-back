@@ -6,9 +6,11 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { Likes } from "./likes.entitie";
 
 @Entity("users")
 class User {
@@ -40,6 +42,8 @@ class User {
       this.password = hashSync(this.password, 9);
     }
   }
+  @OneToMany(() => Likes, (likes) => likes.user)
+  likes: Likes[];
 }
 
 export { User };
