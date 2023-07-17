@@ -3,6 +3,7 @@ import { createCommentService } from "../service/comments/createComment.service"
 import { iComment, iComments } from "../schemas/comments.schemas";
 import { getCommentsByRecipeService } from "../service/comments/getCommentsByRecipe.service";
 import { removeCommentService } from "../service/comments/removeComment.service";
+import { updateCommentService } from "../service/comments/updateComment.service";
 export const createCommentController = async (
   req: Request,
   res: Response
@@ -33,4 +34,13 @@ export const removeCommentController = async (
   const userId: number = parseInt(req.user.id);
   await removeCommentService(commentId, userId);
   return res.status(204).send();
+};
+export const updateCommentController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const commentId: number = parseInt(req.params.id);
+  const commentData = req.body;
+  const comment: iComment = await updateCommentService(commentId, commentData);
+  return res.status(201).json(comment);
 };

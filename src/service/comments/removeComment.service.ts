@@ -1,7 +1,6 @@
 import { Repository } from "typeorm";
 import { Comments, CommentsRecipes } from "../../entities";
 import { AppDataSource } from "../../data-source";
-import { AppError } from "../../errors";
 
 export const removeCommentService = async (
   commentId: number,
@@ -20,17 +19,15 @@ export const removeCommentService = async (
       },
     },
   });
-  if (!findComment) {
-    throw new AppError("Comment whit id not found or you not owner", 404);
-  }
+
   const findCommentRecipe: CommentsRecipes | null =
     await commentRecipeRepository.findOne({
       where: {
         comments: {
-          id: findComment.id,
+          id: findComment!.id!,
         },
       },
     });
   await commentRecipeRepository.remove(findCommentRecipe!);
-  await commentRepository.remove(findComment);
+  await commentRepository.remove(findComment!);
 };

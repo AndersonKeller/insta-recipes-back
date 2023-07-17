@@ -5,9 +5,11 @@ import {
   createCommentController,
   getCommentsByRecipeController,
   removeCommentController,
+  updateCommentController,
 } from "../controllers/comments.controller";
 import { ensureTokenvalidMiddleware } from "../middlewares/ensureTokenIsValid.middleware";
 import { ensureRecipeExistsMiddleware } from "../middlewares/ensureRecipeExists.middleware";
+import { ensureCommentExistsMiddleware } from "../middlewares/ensureCommentExists.middleware";
 
 export const commentsRoutes: Router = Router();
 
@@ -26,5 +28,13 @@ commentsRoutes.get(
 commentsRoutes.delete(
   "/:id",
   ensureTokenvalidMiddleware,
+  ensureCommentExistsMiddleware,
   removeCommentController
+);
+commentsRoutes.patch(
+  "/:id",
+  ensureTokenvalidMiddleware,
+  ensureCommentExistsMiddleware,
+  ensureDataIsValidMiddleware(createCommentSchema),
+  updateCommentController
 );

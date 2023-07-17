@@ -6,7 +6,6 @@ import {
 } from "../../schemas/comments.schemas";
 import { AppDataSource } from "../../data-source";
 import { Comments, CommentsRecipes, Recipe, User } from "../../entities";
-import { AppError } from "../../errors";
 
 export const createCommentService = async (
   recipeId: number,
