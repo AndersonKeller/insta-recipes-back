@@ -6,7 +6,7 @@
   },
   "deploy": {
     "numReplicas": 1,
-    "startCommand": "npm install && npm run typeorm migration:run -d dist/data-source && npm run start ",
+    "startCommand": "npm install && npm run start && npm run typeorm migration:run -d dist/data-source  ",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10
   }
