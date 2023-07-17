@@ -3,7 +3,7 @@ import {
   iRecipes,
   returnAllRecipesSchema,
 } from "../../schemas/recipes.schemas";
-import { Rating, Recipe } from "../../entities";
+import { Recipe } from "../../entities";
 import { AppDataSource } from "../../data-source";
 
 export const getAllRecipesService = async (): Promise<any> => {
