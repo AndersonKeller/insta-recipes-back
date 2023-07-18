@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -11,6 +12,7 @@ import { RecipeIngredient } from "./recipesIngredientes.entitie";
 
 import { CommentsRecipes } from "./commentsRecipes.entitie";
 import { Likes } from "./likes.entitie";
+import { Categories } from "./categorie.entitie";
 
 @Entity("recipes")
 class Recipe {
@@ -42,5 +44,8 @@ class Recipe {
   commentsRecipe: CommentsRecipes[];
   @OneToMany(() => Likes, (likes) => likes.recipe)
   likes: Recipe[];
+  @ManyToOne(() => Categories)
+  @JoinColumn()
+  categorie: Categories;
 }
 export { Recipe };

@@ -7,6 +7,7 @@ import { recipesRoutes } from "./routes/recipes.routes";
 import { commentsRoutes } from "./routes/comments.routes";
 import { likesRoutes } from "./routes/likes.routes";
 import { ratingRoutes } from "./routes/rating.routes";
+import { categoriesRoutes } from "./routes/categories.routes";
 
 const cors = require("cors");
 
@@ -20,6 +21,7 @@ app.use("/recipe", recipesRoutes);
 app.use("/comments", commentsRoutes);
 app.use("/likes", likesRoutes);
 app.use("/rating", ratingRoutes);
+app.use("/categories", categoriesRoutes);
 
 app.use(handleErrors);
 export default app;
