@@ -1,23 +1,10 @@
 import { z } from "zod";
 import { returnUserSchema } from "./user.schemas";
 import { DeepPartial } from "typeorm";
+import { returnCategoriesSchema } from "./categories.schemas";
 
 const types = ["kg", "ml", "unid"] as const;
 
-const categories = [
-  "Bolos",
-  "Carnes",
-  "Aves",
-  "Peixes e frutos do mar",
-  "Saladas",
-  "Molhos",
-  "Sopas",
-  "Massas",
-  "Bebidas",
-  "Sobremesas",
-  "Lanches",
-  "Alimentação saudável",
-] as const;
 const ingredientToRecipe = z
   .object({
     id: z.number().optional(),
@@ -47,7 +34,7 @@ export const createRecipeSchema = z.object({
   minutes: z.number(),
   rendimentPortions: z.number(),
   ingredients: ingredientToRecipe,
-  categorie: z.enum(categories),
+  categorie: z.string().optional(),
 });
 
 export const returnRecipeSchema = createRecipeSchema
@@ -56,9 +43,8 @@ export const returnRecipeSchema = createRecipeSchema
     user: returnUserSchema,
     recipesIngredients: ingredientToRecipe.optional(),
     rating: z.number().optional(),
-    category: z.string(),
   })
-  .omit({ ingredients: true, categorie: true });
+  .omit({ ingredients: true });
 
 export const updateRecipeSchema = createRecipeSchema
   .deepPartial()

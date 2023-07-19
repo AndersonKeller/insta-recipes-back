@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { createCategoriesController } from "../controllers/categories.controller";
+import {
+  createCategoriesController,
+  getAllCategoriesController,
+  getRecipesByCategorieController,
+} from "../controllers/categories.controller";
 import { ensureDataIsValidMiddleware } from "../middlewares/ensureDataIsValid.middleware";
 import { createCategoriesSchema } from "../schemas/categories.schemas";
 
@@ -10,3 +14,5 @@ categoriesRoutes.post(
   ensureDataIsValidMiddleware(createCategoriesSchema),
   createCategoriesController
 );
+categoriesRoutes.get("", getAllCategoriesController);
+categoriesRoutes.get("/:name", getRecipesByCategorieController);

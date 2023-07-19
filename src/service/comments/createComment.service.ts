@@ -39,6 +39,7 @@ export const createCommentService = async (
         ingredient: true,
       },
       user: true,
+      categorie: true,
     },
   });
 
@@ -53,6 +54,7 @@ export const createCommentService = async (
     comment: commentRecipe.comments.comment,
     user: findUser!,
     recipe: commentRecipe.recipe,
+    categorie: commentRecipe.recipe.categorie.name,
   };
   const returnCommentRecipe = returnCommentSchema.parse(toReturn);
   return returnCommentRecipe;

@@ -24,6 +24,7 @@ export const updateRecipeService = async (
       recipesIngredients: {
         ingredient: true,
       },
+      categorie: true,
     },
   });
   const newRecipe: any = {
@@ -31,10 +32,13 @@ export const updateRecipeService = async (
     ...recipeData,
   };
 
-  const recipe: Recipe[] = recipeRepository.create(newRecipe);
+  const recipe: any = recipeRepository.create(newRecipe);
   await recipeRepository.save(recipe);
-
-  const returnRecipe: iRecipe = returnRecipeSchema.parse(newRecipe);
+  const res = {
+    ...recipe,
+    categorie: recipe.categorie.name,
+  };
+  const returnRecipe: iRecipe = returnRecipeSchema.parse(res);
 
   return returnRecipe;
 };

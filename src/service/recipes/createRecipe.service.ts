@@ -13,6 +13,7 @@ import {
   User,
 } from "../../entities";
 import { AppDataSource } from "../../data-source";
+import { AppError } from "../../errors";
 
 export const createRecipeService = async (
   recipeData: CreateRecipe,
@@ -35,9 +36,12 @@ export const createRecipeService = async (
   );
   const findCategorie: Categories | null = await categoriesRepository.findOne({
     where: {
-      name: recipeData.categorie,
+      name: recipeData.categorie!,
     },
   });
+  if (!findCategorie) {
+    throw new AppError("Categorie whit a name not found, required", 404);
+  }
   namesIngredients.forEach(async (name) => {
     const findIngredient: Ingredient | null =
       await ingredientRepository.findOne({
@@ -88,11 +92,11 @@ export const createRecipeService = async (
       });
     await recipeIngredientRepository.save(newRecipeIngredient);
   });
-  const recipeToReturn: iRecipe = {
+  const recipeToReturn: any = {
     ...recipeSaved,
     recipesIngredients: recipeData.ingredients,
     rating: ratingSaved.rating,
-    category: recipeSaved.categorie.name,
+    categorie: recipeSaved.categorie.name,
   };
   const returnRecipe: iRecipe = returnRecipeSchema.parse(recipeToReturn);
   return returnRecipe;

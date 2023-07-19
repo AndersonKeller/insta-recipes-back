@@ -6,7 +6,7 @@ import {
 import { Recipe } from "../../entities";
 import { AppDataSource } from "../../data-source";
 
-export const getAllRecipesService = async (): Promise<any> => {
+export const getAllRecipesService = async (): Promise<iRecipes> => {
   const recipeRepository: Repository<Recipe> =
     AppDataSource.getRepository(Recipe);
 
@@ -16,10 +16,17 @@ export const getAllRecipesService = async (): Promise<any> => {
       recipesIngredients: {
         ingredient: true,
       },
+      categorie: true,
     },
   });
-
-  const returnRecipes: iRecipes = returnAllRecipesSchema.parse(recipes);
+  const res = recipes.map((recipe) => {
+    const obj = {
+      ...recipe,
+      categorie: recipe.categorie.name,
+    };
+    return obj;
+  });
+  const returnRecipes: iRecipes = returnAllRecipesSchema.parse(res);
 
   return returnRecipes;
 };

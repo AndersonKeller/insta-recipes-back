@@ -9,7 +9,12 @@ export const createCommentSchema = z.object({
 export const returnCommentSchema = createCommentSchema.extend({
   id: z.number(),
   user: returnUserSchema,
-  recipe: returnRecipeSchema.omit({ rating: true, user: true }),
+  recipe: returnRecipeSchema.omit({
+    rating: true,
+    user: true,
+    categorie: true,
+  }),
+  categorie: z.string(),
 });
 export const returnAllCommentsSchema = z
   .object({
