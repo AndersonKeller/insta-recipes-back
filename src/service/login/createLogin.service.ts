@@ -15,7 +15,7 @@ export const createLoginService = async (
   const user: User | null = await userRepository.findOneBy({
     email: loginData.email,
   });
-  if (!User) {
+  if (!user) {
     throw new AppError("Invalid credentials", 401);
   }
   const passwordMatch = await compare(loginData.password, user!.password);
